@@ -1,0 +1,21 @@
+{
+  "exclude": ["dist"],
+  "include": ["*.ts", "src/**/*.ts"],
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "baseUrl": ".",
+    "target": "ES6",
+    "module": "CommonJS",
+    "allowJs": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "removeComments": true,
+    "noImplicitAny": false,
+    "rootDir": ".",
+    "outDir": "dist"
+  }
+}

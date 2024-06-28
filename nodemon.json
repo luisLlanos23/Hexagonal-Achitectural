@@ -1,0 +1,6 @@
+{
+  "watch": ["."],
+  "ext": ".ts,.js",
+  "ignore": [],
+  "exec": "NODE_PATH=. npx ts-node index.ts"
+}
