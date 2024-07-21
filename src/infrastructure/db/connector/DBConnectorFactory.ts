@@ -32,7 +32,7 @@ export class DBConnectorFactory {
 
   public getParsedConnectionParams(connectionParams: DBConnectionParameters, connectionName: string): Partial<DataSourceOptions> {
     return {
-      synchronize: false,
+      synchronize: connectionParams.synchronize as boolean,
       name: connectionName,
       host: connectionParams.host as string,
       port: connectionParams.port as number,

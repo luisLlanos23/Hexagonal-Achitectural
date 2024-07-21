@@ -6,6 +6,7 @@ export type DBConnectionParameters = Partial<{
   password: string
   user: string
   connectionName: string
+  synchronize: boolean
 }> & {
   datasource: 'mongodb' | 'postgresql'
 }

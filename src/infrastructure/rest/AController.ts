@@ -3,12 +3,12 @@ import { getException } from 'src/utils/exceptions'
 import { ErrorHandlingTypes } from 'src/utils/exceptions/SystemExceptionCodes'
 
 export abstract class AController {
-  protected static handleError(error: Error | ErrorHandlingTypes.TException, res: IResponse): void {
+  protected static handleError(error: Error | ErrorHandlingTypes.TException, res: IResponse, origin: string): void {
     if (AController.isSystemException(error)) {
       return AController.sendError(error, res, error.httpCode ?? 500)
     }
     AController.sendError(
-      getException('unExpected', error.message),
+      getException('unExpected', error.message, origin),
       res,
       500
     )

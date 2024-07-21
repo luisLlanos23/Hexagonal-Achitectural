@@ -1,5 +1,5 @@
 {
-  "name": "hexagonal_architecture",
+  "name": "hexagonal",
   "version": "1.0.0",
   "description": "Template",
   "main": "index.js",
@@ -49,8 +49,6 @@
     "@types/node": "^20.14.9",
     "@types/owasp-password-strength-test": "^1.3.2",
     "@types/supertest": "^6.0.2",
-    "@types/swagger-ui-express": "^4.1.6",
-    "i": "^0.3.7",
-    "npm": "^10.8.1"
+    "@types/swagger-ui-express": "^4.1.6"
   }
 }

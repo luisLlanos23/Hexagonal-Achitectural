@@ -15,8 +15,10 @@ POSTGRESQL_DB={"host": "", "port": 0000, "ssl": false, "db": "", "password": "",
 MONGODB_DB={"host": "", "port": 0000, "ssl": false, "db": "", "password": "", "user": ""}
 SECRET_TOKEN=''
 ```
-#Build
-
+# Build
+```
+npm run build
+```
 # Run Server
 1. Production Environment
 ```

@@ -1,18 +1,19 @@
 import { DataSource, DataSourceOptions } from 'typeorm'
 import { IDBConnector, TDBType } from 'src/infrastructure/db/connector/IDBConnector'
+import { EntityUserPostgreSQL } from 'src/infrastructure/db/entities/postgresql/user/EntityUser'
 
 export class DBConnector implements IDBConnector {
   private connection!: DataSource
-  private conenctionType!: DataSourceOptions['type'] | undefined
+  private connectionType!: DataSourceOptions['type'] | undefined
 
   constructor(connectionType?: DataSourceOptions['type']) {
-    this.conenctionType = connectionType
+    this.connectionType = connectionType
   }
 
   public async connect(connectionOptions: DataSourceOptions, dbType: TDBType): Promise<void> {
     this.connection = await new DataSource({
       ...connectionOptions,
-      type: this.conenctionType,
+      type: this.connectionType,
       entities: this.getEntitiesByDbType(dbType)
     } as any).initialize()
   }
@@ -20,7 +21,9 @@ export class DBConnector implements IDBConnector {
   private getEntitiesByDbType(dbType: TDBType) {
     switch (dbType) {
       case 'mongodb': return []
-      case 'postgresql': return []
+      case 'postgresql': return [
+        EntityUserPostgreSQL
+      ]
     }
   }
 
