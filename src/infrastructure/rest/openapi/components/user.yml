@@ -36,6 +36,12 @@ components:
         password:
           type: string
           description: The user's password.
+        active:
+          type: number
+          description: The user's active status.
+        isAdmin:
+          type: boolean
+          description: The user's admin status.
 
     logIn:
       type: object
