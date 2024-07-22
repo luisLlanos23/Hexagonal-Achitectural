@@ -16,9 +16,14 @@ export const UserEndpoints: Array<Endpoint> = [
     ]
   },
   {
+    url: '/me',
+    actions: [
+      { method: 'get', func: ControllerUser.getMe }
+    ]
+  },
+  {
     url: '/user/:id',
     actions: [
-      { method: 'get', func: ControllerUser.get },
       { method: 'put', func: ControllerUser.update },
       { method: 'delete', func: ControllerUser.delete }
     ]

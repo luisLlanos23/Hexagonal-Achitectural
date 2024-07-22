@@ -1,5 +1,5 @@
 import Bcrypt from 'bcrypt'
-import Owasp from 'owasp-password-strength-test'
+import Owasp, { TestResult } from 'owasp-password-strength-test'
 import GeneratePassword from 'generate-password'
 
 export class PasswordUtilities {
@@ -7,8 +7,12 @@ export class PasswordUtilities {
   * Check if the password is strong
   * @param password password for check
   */
-  public isPasswordStrong(password: string) {
-    return password && Owasp.test(password)
+  public isPasswordStrong(password: string): { strong: boolean, optionalTestsPassed: number } {
+    const result = Owasp.test(password);
+    return {
+      strong: result.strong,
+      optionalTestsPassed: result.optionalTestsPassed
+    }
   }
   /**
    * Generate a random password

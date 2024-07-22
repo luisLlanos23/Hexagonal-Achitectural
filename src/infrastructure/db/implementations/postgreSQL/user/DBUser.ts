@@ -25,7 +25,7 @@ export class DBUser extends ADB implements IDBUser {
 
   public async getAll(): Promise<ModelUser[]> {
     try {
-      return await this.dataSource.getRepository(EntityUserPostgreSQL).find()
+      return await this.dataSource.getRepository(EntityUserPostgreSQL).find({ where: { active: 1 }})
     } catch (error) {
       throw super.handleDBImplError(error as Error, 'DBUser.getAll')
     }
@@ -65,7 +65,7 @@ export class DBUser extends ADB implements IDBUser {
     try {
       return await this.dataSource
         .getRepository(EntityUserPostgreSQL)
-        .delete({ id }) as unknown as void
+        .update({ id }, { active: 0 }) as unknown as void
     } catch (error) {
       throw super.handleDBImplError(error as Error, 'DBUser.delete')
     }

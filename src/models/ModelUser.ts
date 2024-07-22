@@ -5,4 +5,5 @@ export type ModelUser = {
   email: string
   password: string
   active: -1 | 0 | 1
+  isAdmin: boolean
 }

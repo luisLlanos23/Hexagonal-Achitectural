@@ -17,4 +17,6 @@ export class EntityUserPostgreSQL extends AEntity<IEntityUser> implements IEntit
   public password!: string
   @Column()
   public active!: 0 | 1 | -1
+  @Column()
+  public isAdmin!: boolean
 }

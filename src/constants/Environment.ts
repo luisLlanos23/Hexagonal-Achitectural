@@ -1,5 +1,11 @@
 import { DBConnectionParameters } from 'src/infrastructure/db/connector/types'
 
+type TMailerConfig = {
+  secretKey: string
+  service: string
+  email: string
+}
+
 export class Environments {
   public static get fileFieldName() { return 'template' }
   public static get exceptionApiName() { return 'TEMPLATE' }
@@ -8,4 +14,5 @@ export class Environments {
   public static get postgreSQLConnectionParams(): DBConnectionParameters { return JSON.parse(process.env.POSTGRESQL_DB ?? '{}') }
   public static get mongoDBConnectionParams(): DBConnectionParameters { return JSON.parse(process.env.MONGODB_DB ?? '{}') }
   public static get secretToken(): string { return process.env.SECRET_TOKEN || 'secret' }
+  public static get mailerConfig(): TMailerConfig { return JSON.parse(process.env.MAILER_CONFIG || '{}') }
 }

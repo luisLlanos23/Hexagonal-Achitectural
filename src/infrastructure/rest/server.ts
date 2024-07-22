@@ -13,6 +13,7 @@ import { Environments } from 'src/constants/Environment'
 import { APIRoutes } from 'src/infrastructure/rest/routes'
 import { Endpoint } from 'src/infrastructure/rest/types'
 import { configureDiskStorage } from 'src/infrastructure/rest/lib/configureDiskStorage'
+import { validateEndpoints } from 'src/infrastructure/rest/middlewares/EndpointValidator'
 
 export async function setUpServer(): Promise<void> {
   const port = Environments.restPort || 4000
@@ -60,6 +61,7 @@ async function setMiddlewares(server: IExpress) {
   server.use('/health', returnHealthStatus)
   server.use('/docs/api', SwaggerUi.serve, SwaggerUi.setup(await SwaggerApi()))
   server.use(Multer({ storage: configureDiskStorage() }).array(Environments.fileFieldName))
+  server.use(validateEndpoints)
 }
 
 function setAllowHeaders(_req: IRequest, res: IResponse, next: NextFunction) {

@@ -3,7 +3,9 @@ import { AController } from 'src/infrastructure/rest/AController'
 import { DBImplementationFactory } from 'src/infrastructure/db/implementations/DBImplementationFactory'
 import { UserCreateBusiness } from 'src/use_cases/user/create'
 import { UserFinderBusiness } from 'src/use_cases/user/find'
-
+import { LogInBusiness } from 'src/use_cases/user/logIn'
+import { UserUpdateBusiness } from 'src/use_cases/user/update'
+import { UserDelateBusiness } from 'src/use_cases/user/delete'
 export class ControllerUser extends AController {
   /**
    * @openapi
@@ -26,7 +28,7 @@ export class ControllerUser extends AController {
    *      500:
    *        $ref: '#/components/responses/500'
   */
-  public static async create(req: IRequest, res: IResponse) {
+  public static async create(req: IRequest, res: IResponse): Promise<void> {
     try {
       res.status(200).send(
         await new UserCreateBusiness(new DBImplementationFactory()).create(req.body)
@@ -53,12 +55,13 @@ export class ControllerUser extends AController {
    *      500:
    *        $ref: '#/components/responses/500'
   */
-  public static async getAll(req: IRequest, res: IResponse) {
+  public static async getAll(req: IRequest, res: IResponse): Promise<void> {
     try {
       res.status(200).send(
         await new UserFinderBusiness(new DBImplementationFactory()).find()
       ).end()
     } catch (error) {
+      console.log(error)
       super.handleError(error as Error, res, 'ControllerUser.getAll')
     }
   }
@@ -86,22 +89,24 @@ export class ControllerUser extends AController {
    *      500:
    *        $ref: '#/components/responses/500'
   */
-  public static async logIn(req: IRequest, res: IResponse) {
+  public static async logIn(req: IRequest, res: IResponse): Promise<void> {
     try {
-      res.status(200).send().end()
+      res.status(200).send(
+        await new LogInBusiness(new DBImplementationFactory()).logIn(req.body.email, req.body.password)
+      ).end()
     } catch (error) {
       super.handleError(error as Error, res, 'ControllerUser.logIn')
     }
   }
   /**
    * @openapi
-   * /user/{id}:
+   * /me:
    *  get:
    *    tags: [User Endpoints]
-   *    description: Find user by ID
+   *    description: Get me information
    *    responses:
    *      200:
-   *        description: Get user by ID
+   *        description: Get me information
    *        content:
    *          application/json:
    *            schema:
@@ -109,13 +114,13 @@ export class ControllerUser extends AController {
    *      500:
    *        $ref: '#/components/responses/500'
   */
-  public static async get(req: IRequest, res: IResponse) {
+  public static async getMe(req: IRequest, res: IResponse) {
     try {
       res.status(200).send(
-        await new UserFinderBusiness(new DBImplementationFactory()).findById(Number(req.params.id))
+        await new UserFinderBusiness(new DBImplementationFactory()).findMe(req.user)
       ).end()
     } catch (error) {
-      super.handleError(error as Error, res, 'ControllerUser.get')
+      super.handleError(error as Error, res, 'ControllerUser.getMe')
     }
   }
   /**
@@ -141,7 +146,10 @@ export class ControllerUser extends AController {
   */
   public static async update(req: IRequest, res: IResponse) {
     try {
-      res.status(200).send().end()
+      res.status(200).send(
+        await new UserUpdateBusiness(new DBImplementationFactory())
+          .update(Number(req.params.id), req.body)
+      ).end()
     } catch (error) {
       super.handleError(error as Error, res, 'ControllerUser.update')
     }
@@ -164,7 +172,9 @@ export class ControllerUser extends AController {
   */
   public static async delete(req: IRequest, res: IResponse) {
     try {
-      res.status(200).send().end()
+      res.status(200).send(
+        await new UserDelateBusiness(new DBImplementationFactory()).delete(Number(req.params.id), req.user)
+      ).end()
     } catch (error) {
       super.handleError(error as Error, res, 'ControllerUser.delete')
     }
