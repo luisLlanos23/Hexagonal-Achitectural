@@ -10,7 +10,7 @@ export class UserLib {
     this.cryptoUtils = new CryptoUtils()
   }
 
-  public validatePassword(password): boolean {
+  public validatePassword(password: string): boolean {
     return this.passwordUtilities.isPasswordStrong(password).strong
   }
 }

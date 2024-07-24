@@ -27,7 +27,7 @@ export class UserUpdateBusiness {
     }
     await this.dbUser.update(userId, userData)
     const userRecord = await this.dbUser.getById(userId)
-    if(userData.password) await this.sendEmail(userRecord.email, password)
+    if(userData.password) await this.sendNewPassword(userRecord.email, password)
     return userRecord
   }
 
@@ -38,7 +38,7 @@ export class UserUpdateBusiness {
     return await this.cryptoUtils.encrypt(password)
   }
 
-  private async sendEmail(email: string, password: string): Promise<void> {
+  private async sendNewPassword(email: string, password: string): Promise<void> {
     await this.mailUtils.sendMail({
       to: email,
       subject: 'Update your password successfully',

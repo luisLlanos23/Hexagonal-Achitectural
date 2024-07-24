@@ -9,11 +9,11 @@ async function connectToTypeOrm(): Promise<any> {
 
   await connectorFactory.setConnector('postgresql', Environments.postgreSQLConnectionParams)
   connectorFactory.getConnector('postgresql')?.reestablishConnection()
-  logger.log('Connect correctly to the Sivo PostgreSQL DB')
+  logger.log(`Connect correctly to the ${Environments.postgreSQLConnectionParams.db} PostgreSQL DB`)
 
   await connectorFactory.setConnector('mongodb', Environments.mongoDBConnectionParams)
   connectorFactory.getConnector('mongodb')?.reestablishConnection()
-  logger.log('Connect correctly to the Sivo Mongo DB')
+  logger.log(`Connect correctly to the ${Environments.mongoDBConnectionParams.db} Mongo DB`)
 }
 
 export async function setUpDB(): Promise<void> {
