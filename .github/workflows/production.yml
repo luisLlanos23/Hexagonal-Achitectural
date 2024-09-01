@@ -25,14 +25,14 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build, tag, and push image to Docker Hub
-        id: build-image
+        id: meta
         env:
           IMAGE_NAME: hexagonal
           IMAGE_TAG: latest
         run: |
           # Build a docker container and
           # push it to ECR so that it can
-          # be deployed to ECS.
+          # be deployed to Docker.
           docker build -t $IMAGE_NAME:$IMAGE_TAG .
           docker push luisllanos/$IMAGE_NAME:$IMAGE_TAG
           echo "::set-output name=image::$IMAGE_NAME:$IMAGE_TAG"
