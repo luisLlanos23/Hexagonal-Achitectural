@@ -16,8 +16,7 @@ export class DBUser extends ADB implements IDBUser {
 
   public async create(userData: ModelUser): Promise<ModelUser> {
     try {
-      const user = new EntityUserPostgreSQL(userData)
-      return await this.dataSource.getRepository(EntityUserPostgreSQL).save(user)
+      return await this.dataSource.getRepository(EntityUserPostgreSQL).save(userData)
     } catch (error) {
       throw super.handleDBImplError(error as Error, 'DBUser.create')
     }

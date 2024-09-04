@@ -1,6 +1,5 @@
 {
-  "exclude": ["dist"],
-  "include": ["*.ts", "src/**/*.ts"],
+  "exclude": ["dist", "node_modules"],
   "compilerOptions": {
     "resolveJsonModule": true,
     "experimentalDecorators": true,
@@ -17,6 +16,10 @@
     "noImplicitAny": false,
     "rootDir": ".",
     "outDir": "dist",
-    "types": ["./index"]
-  }
+    "types": ["./index", "jest"],
+    "paths": {
+      "@src/*": ["src/*"],
+      "@tests/*": ["tests/*"]
+    }
+  },
 }

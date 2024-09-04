@@ -11,6 +11,6 @@ export class UserLib {
   }
 
   public validatePassword(password: string): boolean {
-    return this.passwordUtilities.isPasswordStrong(password).strong
+    return Boolean(this.passwordUtilities.isPasswordStrong(password).strong)
   }
 }

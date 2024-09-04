@@ -18,7 +18,7 @@ export class DBConnector implements IDBConnector {
     } as any).initialize()
   }
 
-  private getEntitiesByDbType(dbType: TDBType) {
+  public getEntitiesByDbType(dbType: TDBType) {
     switch (dbType) {
       case 'mongodb': return []
       case 'postgresql': return [

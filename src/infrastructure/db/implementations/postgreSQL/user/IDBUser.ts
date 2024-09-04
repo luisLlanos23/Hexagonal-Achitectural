@@ -5,7 +5,7 @@ export interface IDBUser {
   * Create a new user
   * @param user User data to create
   */
-  create(user: ModelUser): Promise<ModelUser>
+  create(user:  Omit<ModelUser, 'id'>): Promise<ModelUser>
   /**
    * Get all users
    */
@@ -25,7 +25,7 @@ export interface IDBUser {
    * @param userId User id
    * @param user User data to update
    */
-  update(userId: number, user: ModelUser): Promise<void>
+  update(userId: number, user: Partial<ModelUser>): Promise<void>
   /**
    * Delete a user
    * @param id User id to delete

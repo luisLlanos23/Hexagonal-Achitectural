@@ -1,0 +1,1 @@
+from bitnami/mongodb:4.2.21
