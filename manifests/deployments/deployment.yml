@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  hexagonal
+  namespace: dev
+  labels:
+    app:  hexagonal
+spec:
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: hexagonal
+  template:
+    metadata:
+      name: hexagonal
+      labels:
+        app: hexagonal
+    spec:
+      nodeSelector:
+        node: hexagonal
+      containers:
+        - name: server
+          image: luisllanos/hexagonal:latest
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "500Mi"
+          envFrom:
+            - configMapRef:
+                name: hexagonal
+          ports:
+            - containerPort: 5000
