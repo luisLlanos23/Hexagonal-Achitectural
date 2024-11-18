@@ -5,18 +5,18 @@ import { Environments } from 'src/constants/Environment'
 
 @Entity({ schema: 'public', name: 'user', synchronize: Environments.postgreSQLConnectionParams.synchronize })
 export class EntityUserPostgreSQL extends AEntity<IEntityUser> implements IEntityUser {
-  @PrimaryColumn()
-  public id!: number
-  @Column()
-  public name!: string
-  @Column()
-  public lastname!: string
-  @Column()
-  public email!: string
-  @Column()
-  public password!: string
-  @Column()
-  public active!: 0 | 1 | -1
-  @Column()
-  public isAdmin!: boolean
+  @PrimaryColumn({ generated: 'identity', type: 'int' })
+  public id!: IEntityUser['id']
+  @Column({ type: 'varchar', length: 255 })
+  public name!: IEntityUser['name']
+  @Column({ type: 'varchar', length: 255 })
+  public lastname!: IEntityUser['lastname']
+  @Column({ type: 'varchar', length: 255 })
+  public email!: IEntityUser['email']
+  @Column({ type: 'varchar', length: 255 })
+  public password!: IEntityUser['password']
+  @Column({ type: 'int' })
+  public active!: IEntityUser['active']
+  @Column({ type: 'boolean' })
+  public isAdmin!: IEntityUser['isAdmin']
 }

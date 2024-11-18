@@ -18,7 +18,7 @@ export class UserUpdateBusiness {
     this.mailUtils = new MailUtils()
   }
 
-  public async update(userId: number, userData: ModelUser): Promise<ModelUser> {
+  public async update(userId: number, userData: Partial<ModelUser>): Promise<ModelUser> {
     let password = ''
     if(userData.password) {
       const newPassword = await this.passwordHandler(userData.password)

@@ -8,5 +8,5 @@ export type DBConnectionParameters = Partial<{
   connectionName: string
   synchronize: boolean
 }> & {
-  datasource: 'mongodb' | 'postgresql'
+  datasource: 'mongodb' | 'test'
 }

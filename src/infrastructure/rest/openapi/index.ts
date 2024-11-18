@@ -12,7 +12,7 @@ const swaggerDefinition: SwaggerJsdoc.SwaggerDefinition = {
     description: (
       Environments.environment === 'production'
         ? 'https://'
-        : `localhost:${Environments.restPort}`
+        : `http://localhost:${Environments.restPort}`
     )
   },
   security: [{ JWT: [] }],

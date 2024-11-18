@@ -18,7 +18,7 @@ export class MailUtils implements IEmailUtils {
     try {
       return await this.transporter.sendMail(options)
     } catch (error) {
-      getException('notFound', error as unknown as string, 'mailUtils.sendMail')
+      throw getException('notFound', error as unknown as string, 'mailUtils.sendMail')
     }
   }
 }

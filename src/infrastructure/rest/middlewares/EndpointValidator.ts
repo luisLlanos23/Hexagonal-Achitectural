@@ -12,8 +12,8 @@ import { getException } from 'src/utils/exceptions'
 export function validateEndpoints(req: IRequest, res: IResponse, next: INextFunction): void {
   try {
     if (req.method === 'OPTIONS') return next()
-      if ((req.path === '/login' || req.path === '/logIn') && req.method === 'POST') return next()
-      if (req.path === '/user' && req.method === 'POST') return next()
+    if ((req.path === '/login' || req.path === '/logIn') && req.method === 'POST') return next()
+    if (req.path === '/user' && req.method === 'POST') return next()
     validateAuthorization(req)
     next()
   } catch (error) {

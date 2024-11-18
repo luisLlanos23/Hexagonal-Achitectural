@@ -19,6 +19,6 @@ export class UserDelateBusiness {
 
   private async checkIfUserIsAdmin(userId: number): Promise<boolean> {
     const user = await this.dbUser.getById(userId)
-    return user.isAdmin
+    return user ? user.isAdmin : false
   }
 }

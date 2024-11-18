@@ -5,7 +5,7 @@ export class DBImplementationFactory implements IDBImplementationFactory {
   getImplementation<TImplementation>(type: TDBFactoryImplementationType): TImplementation {
     switch (type) {
       case 'user':
-        return new DBUser() as unknown as TImplementation
+        return new DBUser() as TImplementation
     }
   }
 }

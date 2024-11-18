@@ -19,7 +19,7 @@ export class UserCreateBusiness {
     this.mailUtils = new MailUtils()
   }
 
-  public async create(user: ModelUser): Promise<ModelUser> {
+  public async create(user: Omit<ModelUser, 'id'>): Promise<ModelUser> {
     await this.validate(user)
     const userRecord = await this.dbUser.create({
       ...user,
@@ -30,15 +30,15 @@ export class UserCreateBusiness {
     return userRecord
   }
 
-  private async validate(user: ModelUser): Promise<void> {
+  private async validate(user:  Omit<ModelUser, 'id'>): Promise<void> {
     const userExists = await this.dbUser.getByEmail(user.email)
     if(userExists) throw getException('forbidden', 'User already exists', 'UserCreateBusiness.validate')
-    if(this.lib.validatePassword(user.password)) {
+    if(!this.lib.validatePassword(user.password)) {
       throw getException('forbidden', 'Password is not strong', 'UserCreateBusiness.validate')
     }
   }
 
-  private async sendEmail(user: ModelUser): Promise<void> {
+  private async sendEmail(user: Omit<ModelUser, 'id'>): Promise<void> {
     await this.mailUtils.sendMail({
       to: user.email,
       subject: `Welcome to our platform ${user.name}`,
