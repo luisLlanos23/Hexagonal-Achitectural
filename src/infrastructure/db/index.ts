@@ -20,6 +20,7 @@ export async function setUpDB(): Promise<void> {
   try {
     await connectToTypeOrm()
   } catch (error) {
+    console.log(error)
     getException('unExpected', new Error(error as unknown as string).message, 'setUpDB')
     process.exit(1)
   }

@@ -1,6 +1,6 @@
-FROM node:16-alpine3.18
+FROM node:22-alpine
 WORKDIR /app
 COPY . .
-RUN npm install
+RUN npm install --force
+EXPOSE $PORT
 CMD npm run start
-EXPOSE 8080
