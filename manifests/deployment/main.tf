@@ -28,7 +28,7 @@ resource "kubernetes_deployment_v1" "nestjs_template_deployment" {
       spec {
         container {
           name              = "hexagonal-architecture-expressjs"
-          image             = ""
+          image             = "luisllanos/hexagonal:latest"
           image_pull_policy = "Always"
 
           env {
