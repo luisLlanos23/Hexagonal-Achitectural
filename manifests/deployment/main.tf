@@ -45,9 +45,9 @@ resource "kubernetes_deployment_v1" "nestjs_template_deployment" {
             {
               host: "$(NODE_IP)",
               port: 30000,
-              db: "${var.env_vars.POSTGRESQL_DB}",
-              user: "${var.env_vars.POSTGRESQL_USER}",
-              password: "${var.env_vars.POSTGRESQL_PASSWORD}",
+              db: "${var.env_vars.DATABASE_NAME}",
+              user: "${var.env_vars.DATABASE_USER}",
+              password: "${var.env_vars.DATABASE_PASSWORD}",
               ssl: false,
               synchronize: true
             }
@@ -67,7 +67,13 @@ resource "kubernetes_deployment_v1" "nestjs_template_deployment" {
           }
           env {
             name  = "MAILER_CONFIG"
-            value = var.env_vars.MAILER_CONFIG
+            value = <<EOT
+            {
+              "email": "${var.env_vars.MAILER_EMAIL}",
+              "secretKey": "${var.env_vars.MAILER_SECRET_KEY}",
+              "service": "${var.env_vars.MAILER_SERVICE}"
+            }
+            EOT
           }
           env {
             name  = "SECRET_TOKEN"
