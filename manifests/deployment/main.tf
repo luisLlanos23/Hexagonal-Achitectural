@@ -43,13 +43,13 @@ resource "kubernetes_deployment_v1" "nestjs_template_deployment" {
             name  = "POSTGRESQL_DB"
             value = <<EOT
             {
-              host: "$(NODE_IP)",
-              port: 30000,
-              db: "${var.env_vars.DATABASE_NAME}",
-              user: "${var.env_vars.DATABASE_USER}",
-              password: "${var.env_vars.DATABASE_PASSWORD}",
-              ssl: false,
-              synchronize: true
+              "host": "$(NODE_IP)",
+              "port": 30000,
+              "db": "${var.env_vars.DATABASE_NAME}",
+              "user": "${var.env_vars.DATABASE_USER}",
+              "password": "${var.env_vars.DATABASE_PASSWORD}",
+              "ssl": false,
+              "synchronize": true
             }
             EOT
           }
@@ -57,11 +57,11 @@ resource "kubernetes_deployment_v1" "nestjs_template_deployment" {
             name  = "MONGODB_DB"
             value = <<EOT
             {
-              host: "$(NODE_IP)",
-              port: 30010,
-              db: "${var.env_vars.MONGODB_DB}",
-              ssl: false,
-              synchronize: true
+              "host": "$(NODE_IP)",
+              "port": 30010,
+              "db": "${var.env_vars.MONGODB_DB}",
+              "ssl": false,
+              "synchronize": true
             }
             EOT
           }
