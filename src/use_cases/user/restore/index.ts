@@ -2,16 +2,17 @@ import { IDBImplementationFactory  } from 'src/infrastructure/db/implementations
 import { IDBUser } from 'src/infrastructure/db/implementations/postgreSQL/user/IDBUser'
 import { getException } from 'src/utils/exceptions'
 
-export class UserDelateBusiness {
-  private dbUser!: IDBUser
+export class RestoreUserBusiness {
+  private dbUser: IDBUser
+
   constructor(dbImplementationFactory: IDBImplementationFactory) {
     this.dbUser = dbImplementationFactory.getImplementation('user')
   }
 
-  public async delete(userId: number, userSessionMetadata: { id: number; isAdmin: boolean }): Promise<void> {
-    if (userId !== userSessionMetadata.id && !userSessionMetadata.isAdmin) {
-      throw getException('forbidden', 'You are not allowed to delete this user')
+  public async restore(userId: number, userSessionMetaData: { id: number, isAdmin: boolean }): Promise<any> {
+    if (userId !== userSessionMetaData.id && !userSessionMetaData.isAdmin) {
+      throw getException('forbidden', 'You are not allowed to restore this user')
     }
-    return await this.dbUser.delete(userId)
+    return await this.dbUser.restore(userId)
   }
 }

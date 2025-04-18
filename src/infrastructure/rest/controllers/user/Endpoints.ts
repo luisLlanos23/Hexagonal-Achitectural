@@ -3,10 +3,16 @@ import { ControllerUser } from 'src/infrastructure/rest/controllers/user/Control
 
 export const UserEndpoints: Array<Endpoint> = [
   {
-    url: '/user',
+    url: '/users',
     actions: [
       { method: 'post', func: ControllerUser.create },
       { method: 'get', func: ControllerUser.getAll }
+    ]
+  },
+  {
+    url: '/register',
+    actions: [
+      { method: 'post', func: ControllerUser.register }
     ]
   },
   {
@@ -22,10 +28,11 @@ export const UserEndpoints: Array<Endpoint> = [
     ]
   },
   {
-    url: '/user/:id',
+    url: '/users/:id',
     actions: [
       { method: 'put', func: ControllerUser.update },
-      { method: 'delete', func: ControllerUser.delete }
+      { method: 'delete', func: ControllerUser.delete },
+      { method: 'patch', func: ControllerUser.restoreUser }
     ]
   }
 ]

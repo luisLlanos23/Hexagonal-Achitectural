@@ -46,6 +46,7 @@ resource "kubernetes_deployment_v1" "nestjs_template_deployment" {
               "host": "$(NODE_IP)",
               "port": 30000,
               "db": "${var.env_vars.DATABASE_NAME}",
+              "schema": "${var.env_vars.DATABASE_SCHEMA}",
               "user": "${var.env_vars.DATABASE_USER}",
               "password": "${var.env_vars.DATABASE_PASSWORD}",
               "ssl": false,

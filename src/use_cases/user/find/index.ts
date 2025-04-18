@@ -8,8 +8,15 @@ export class UserFinderBusiness {
     this.dbUser = dbImplementationFactory.getImplementation('user')
   }
 
-  public async find(): Promise<Array<ModelUser>> {
-    return await this.dbUser.getAll()
+  public async find(): Promise<Array<Partial<ModelUser>>> {
+    return (await this.dbUser.getAll()).map((user) => {
+      return {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        lastName: user.lastName,
+      }
+    })
   }
 
   public async findMe(id: number): Promise<Partial<ModelUser>> {
@@ -18,7 +25,12 @@ export class UserFinderBusiness {
       id: user.id,
       email: user.email,
       name: user.name,
-      lastname: user.lastname,
+      lastName: user.lastName,
+      isAdmin: user.isAdmin,
+      tokenExpiration: user.tokenExpiration,
+      created_at: user.created_at,
+      updated_at: user.updated_at,
+      deleted_at: user.deleted_at,
     }
   }
 }

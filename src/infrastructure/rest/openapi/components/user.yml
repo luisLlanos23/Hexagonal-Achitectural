@@ -6,16 +6,13 @@ components:
         name:
           type: string
           description: The user's name.
-        lastname:
+        lastName:
           type: string
           description: The user's last name.
         email:
           type: string
           format: email
           description: The user's email address.
-        password:
-          type: string
-          description: The user's password.
 
     userRecord:
       type: object
@@ -26,7 +23,7 @@ components:
         name:
           type: string
           description: The user's name.
-        lastname:
+        lastName:
           type: string
           description: The user's last name.
         email:
@@ -36,14 +33,15 @@ components:
         password:
           type: string
           description: The user's password.
-        active:
-          type: number
-          description: The user's active status.
         isAdmin:
           type: boolean
           description: The user's admin status.
+        tokenExpiration:
+          type: string
+          format: date-time
+          description: The expiration date and time of the user's token.
 
-    logIn:
+    userSignIn:
       type: object
       properties:
         email:
@@ -53,3 +51,24 @@ components:
         password:
           type: string
           description: The user's password.
+
+    getUserWithDateTimeResponse:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/userRecord'
+        - $ref: '#/components/schemas/dateTimeResponse'
+
+    registerResponse:
+      type: object
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: number
+              description: The user's unique identifier.
+        - $ref: '#/components/schemas/user'
+        - type: object
+          properties:
+            token:
+              type: string
+              description: The user's authentication token.

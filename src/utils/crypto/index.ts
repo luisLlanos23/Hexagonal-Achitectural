@@ -3,8 +3,9 @@ import Bcrypt from "bcrypt";
 import JWT from "jwt-simple";
 
 type TDataToken = {
-  sub: number;
-  name: string;
+  id: number;
+  email: string;
+  isAdmin: boolean;
 };
 
 export class CryptoUtils {

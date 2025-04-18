@@ -28,7 +28,10 @@ export class UserUpdateBusiness {
     await this.dbUser.update(userId, userData)
     const userRecord = await this.dbUser.getById(userId)
     if(userData.password) await this.sendNewPassword(userRecord.email, password)
-    return userRecord
+    return {
+      ...userRecord,
+      password: userData.password ? userData.password : userRecord.password
+    }
   }
 
   private async passwordHandler(password: string): Promise<string> {
