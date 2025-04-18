@@ -1,0 +1,17 @@
+components:
+  schemas:
+    dateTimeResponse:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          description: user creation date
+        updated_at:
+          type: string
+          format: date-time
+          description: user update date
+        deleted_at:
+          type: string
+          format: date-time
+          description: user update date

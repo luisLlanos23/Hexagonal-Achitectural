@@ -3,6 +3,7 @@ export type DBConnectionParameters = Partial<{
   port: number
   ssl: boolean
   db: string
+  schema: string
   password: string
   user: string
   connectionName: string

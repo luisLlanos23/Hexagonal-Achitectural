@@ -47,6 +47,10 @@ function setEndpoints(server: IExpress) {
           router.delete(endpoint.url, action.func)
           break
         }
+        case ('patch'): {
+          router.patch(endpoint.url, action.func)
+          break
+        }
       }
     })
   })

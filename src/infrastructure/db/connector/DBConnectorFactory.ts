@@ -45,6 +45,7 @@ export class DBConnectorFactory {
       port: connectionParams.port as number,
       ssl: connectionParams.ssl ? { rejectUnauthorized: true } : false,
       database: connectionParams.db as string,
+      schema: connectionParams.schema as string,
       password: connectionParams.password as string,
       username: connectionParams.user as string,
       logging: false,

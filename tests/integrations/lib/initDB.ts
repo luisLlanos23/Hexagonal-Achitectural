@@ -4,10 +4,9 @@ import { EntityUserPostgreSQL } from 'src/infrastructure/db/entities/postgresql/
 
 const mockUsers: Partial<ModelUser>[] = [
   {
-    active: 1,
     email: 'test@email.com',
     isAdmin: true,
-    lastname: 'lastName test',
+    lastName: 'lastName test',
     name: 'name test',
     password: 'test'
   }

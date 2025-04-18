@@ -32,10 +32,9 @@ describe('Integration Test For User Business', () => {
 
   let userData = {
     name: 'Test User',
-    lastname: 'Test User Lastname',
+    lastName: 'Test User lastName',
     email: 'test@gmail.com',
     password: 'Unitary$13A03(',
-    active: 1,
     isAdmin: true,
     encryptPassword: ''
   }
@@ -44,16 +43,15 @@ describe('Integration Test For User Business', () => {
   test('Create User', async () => {
     const userCreated = await new UserCreateBusiness(dbImplementationFactory).create({
       name: userData.name,
-      lastname: userData.lastname,
+      lastName: userData.lastName,
       email: userData.email,
       password: userData.password,
-      active: 1,
-      isAdmin: userData.isAdmin
+      isAdmin: userData.isAdmin,
     })
     expect(userCreated).toBeDefined()
     expect(userCreated.id).toEqual(1)
     expect(userCreated.name).toEqual(userCreated.name)
-    expect(userCreated.lastname).toEqual(userCreated.lastname)
+    expect(userCreated.lastName).toEqual(userCreated.lastName)
     expect(userCreated.email).toEqual(userData.email)
     expect(userCreated.password).toBeDefined()
     expect(userCreated.isAdmin).toBeTruthy()
@@ -65,10 +63,9 @@ describe('Integration Test For User Business', () => {
     try {
       await new UserCreateBusiness(dbImplementationFactory).create({
         name: userData.name,
-        lastname: userData.lastname,
+        lastName: userData.lastName,
         email: userData.email,
         password: userData.password,
-        active: 1,
         isAdmin: false
       })
     } catch (error) {
@@ -103,7 +100,7 @@ describe('Integration Test For User Business', () => {
       expect(user).toBeDefined()
       expect(user.id).toEqual(1)
       expect(user.name).toEqual(userData.name)
-      expect(user.lastname).toEqual(userData.lastname)
+      expect(user.lastName).toEqual(userData.lastName)
       expect(user.email).toEqual(userData.email)
     })
   })
@@ -113,18 +110,18 @@ describe('Integration Test For User Business', () => {
     expect(user).toBeDefined()
     expect(user.id).toEqual(1)
     expect(user.name).toEqual(userData.name)
-    expect(user.lastname).toEqual(userData.lastname)
+    expect(user.lastName).toEqual(userData.lastName)
     expect(user.email).toEqual(userData.email)
   })
 
   test('Update User Info', async () => {
     const userUpdated = await new UserUpdateBusiness(dbImplementationFactory).update(userData['id'], {
       name: 'Test User Updated',
-      lastname: 'Test User Lastname Updated'
+      lastName: 'Test User lastName Updated'
     })
     expect(userUpdated).toBeDefined()
     expect(userUpdated.name).toContain('Updated')
-    expect(userUpdated.lastname).toContain('Updated')
+    expect(userUpdated.lastName).toContain('Updated')
   })
 
   test('Update User Password', async () => {
@@ -139,7 +136,7 @@ describe('Integration Test For User Business', () => {
 
   test('Delete User Forbidden', async () => {
     try {
-      await new UserDelateBusiness(dbImplementationFactory).delete(userData['id'], 2)
+      await new UserDelateBusiness(dbImplementationFactory).delete(userData['id'], { id: 2, isAdmin: false })
     } catch (error) {
       expect(error).toBeDefined()
       const errorParsed = JSON.parse(JSON.stringify(error))
@@ -149,7 +146,7 @@ describe('Integration Test For User Business', () => {
   })
 
   test('Delete User', async () => {
-    await new UserDelateBusiness(dbImplementationFactory).delete(userData['id'], userData['id'])
+    await new UserDelateBusiness(dbImplementationFactory).delete(userData['id'], { id: userData['id'], isAdmin: true })
     const users = await new UserFinderBusiness(dbImplementationFactory).find()
     expect(users.length).toEqual(0)
   })

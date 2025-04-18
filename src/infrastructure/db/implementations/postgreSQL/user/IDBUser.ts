@@ -31,4 +31,9 @@ export interface IDBUser {
    * @param id User id to delete
    */
   delete(id: number): Promise<void>
+  /**
+   * Restore a user
+   * @param id User id to restore
+   */
+  restore(id: number): Promise<void>
 }

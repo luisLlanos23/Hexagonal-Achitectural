@@ -1,4 +1,4 @@
-import { DataSource } from 'typeorm'
+import { DataSource, IsNull } from 'typeorm'
 import { ADB } from 'src/infrastructure/db/implementations/ADB'
 import { DBConnectorFactory } from 'src/infrastructure/db/connector/DBConnectorFactory'
 import { EntityUserPostgreSQL } from 'src/infrastructure/db/entities/postgresql/user/EntityUser'
@@ -24,7 +24,9 @@ export class DBUser extends ADB implements IDBUser {
 
   public async getAll(): Promise<ModelUser[]> {
     try {
-      return await this.dataSource.getRepository(EntityUserPostgreSQL).find({ where: { active: 1 }})
+      return await this.dataSource.getRepository(EntityUserPostgreSQL).find({
+        where: { deleted_at: IsNull() }
+      }) as ModelUser[]
     } catch (error) {
       throw super.handleDBImplError(error as Error, 'DBUser.getAll')
     }
@@ -64,9 +66,19 @@ export class DBUser extends ADB implements IDBUser {
     try {
       return await this.dataSource
         .getRepository(EntityUserPostgreSQL)
-        .update({ id }, { active: 0 }) as unknown as void
+        .softDelete({ id }) as unknown as void
     } catch (error) {
       throw super.handleDBImplError(error as Error, 'DBUser.delete')
+    }
+  }
+
+  public async restore(id: number): Promise<void> {
+    try {
+      return await this.dataSource
+        .getRepository(EntityUserPostgreSQL)
+        .restore({ id }) as unknown as void
+    } catch (error) {
+      throw super.handleDBImplError(error as Error, 'DBUser.restore')
     }
   }
 }

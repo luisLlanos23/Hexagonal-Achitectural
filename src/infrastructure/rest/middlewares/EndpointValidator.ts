@@ -13,7 +13,7 @@ export function validateEndpoints(req: IRequest, res: IResponse, next: INextFunc
   try {
     if (req.method === 'OPTIONS') return next()
     if ((req.path === '/login' || req.path === '/logIn') && req.method === 'POST') return next()
-    if (req.path === '/user' && req.method === 'POST') return next()
+    if (req.path === '/register' && req.method === 'POST') return next()
     validateAuthorization(req)
     next()
   } catch (error) {
@@ -33,7 +33,12 @@ function validateAuthorization(req: IRequest) {
       req.headers.authorization, Environments.secretToken
     )
     if (payload.exp <= moment().unix()) throw getException('forbidden', 'Your token expired')
-    req.user = payload.sub
+    req.userMetadata = {
+      id: payload.id,
+      email: payload.email,
+      isAdmin: payload.isAdmin,
+      exp: payload.exp
+    }
   } else {
     throw getException(
       'forbidden',

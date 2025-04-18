@@ -1,9 +1,12 @@
 export type ModelUser = {
   id: number
   name: string
-  lastname: string
+  lastName: string
   email: string
   password: string
-  active: -1 | 0 | 1
   isAdmin: boolean
+  tokenExpiration?: Date
+  created_at?: Date
+  updated_at?: Date
+  deleted_at?: Date
 }
